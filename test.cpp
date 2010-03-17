@@ -104,7 +104,7 @@ int main()
 	sp.column_names.push_back("thread3");
 	
 	
-	//try {
+	/*try {
 	
 	ColumnOrSuperColumn cosc;
 	ColumnParent CP;
@@ -116,14 +116,14 @@ int main()
 			CP,
 			sp,
 			ONE);
-	try{
+	
 	vector<ColumnOrSuperColumn> :: iterator vit;
 	for(vit = lcosc.begin(); vit!=lcosc.end(); vit++) {
 		std::cout<<(*vit).column.name.c_str()<<endl;
 	}
 	}catch(InvalidRequestException &e){
-		cout<<"invalid";
-	}
+		cout<<"invalid"<<endl;
+	}*/
 				
 
 	transport->close();
