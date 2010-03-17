@@ -23,6 +23,7 @@ static string host("cass01");
 void insert();
 void get();
 void get_slice();
+void remove();
 
 string strCol;
 string strColFamily;
@@ -32,6 +33,7 @@ int main()
   insert();
   get();
   get_slice();
+  //remove();
   return 0;
 }
 
@@ -161,6 +163,30 @@ void get_slice()
   cout<<"Column Name: "<<(*vit).column.name.c_str()<<"\t"<<"Column value in num_posts :"<<(*vit).column.value.c_str()<<endl;
   
   
+}
+
+void remove()
+{
+  shared_ptr<TTransport> socket_forum(new TSocket("cass01",port));
+  shared_ptr<TTransport> transport_forum(new TBufferedTransport(socket_forum));
+  shared_ptr<TProtocol> protocol_forum(new TBinaryProtocol(transport_forum));
+  CassandraClient client(protocol_forum);
+  transport_forum->open();
+  
+  ColumnPath col_path;
+  col_path.__isset.column=true;
+  col_path.column_family.assign("Forum");
+  
+  col_path.column.assign("catrelatedDiscussion");
+  
+  try
+  {
+	client.remove("Standard_Forum", "num_posts", col_path, time(NULL), ONE);
+  }
+  catch(TException &te)
+  {
+	cout<<"ERROR : "<<te.what()<<endl;
+  }
 }
 
   
